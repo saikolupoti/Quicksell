@@ -104,10 +104,21 @@ const KanbanBoard = ({ grouping, sorting }) => {
     });
   };
 
+  // Function to sort group keys by their priority order
+  const sortGroupKeysByPriority = (keys) => {
+    return keys.sort((a, b) => {
+      const priorityA = priorityOrder.indexOf(a);
+      const priorityB = priorityOrder.indexOf(b);
+      return priorityA - priorityB;
+    });
+  };
+
   const renderGroupedTickets = (groupedTickets) => {
+    const sortedGroupKeys = sortGroupKeysByPriority(Object.keys(groupedTickets));
+
     return (
       <div className="kanban-board">
-        {Object.keys(groupedTickets).map((groupKey) => (
+        {sortedGroupKeys.map((groupKey) => (
           <div className="kanban-column" key={groupKey}>
             <h2>{groupKey}</h2>
             {sortTickets(groupedTickets[groupKey]).map((ticket) => (
