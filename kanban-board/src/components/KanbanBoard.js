@@ -14,18 +14,22 @@ const KanbanBoard = ({ grouping, sorting }) => {
         const response = await fetch(
           "https://api.quicksell.co/v1/internal/frontend-assignment"
         );
-        console.log(response.data); // Log the response data to check its structure
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        console.log(data); // Log the response data to check its structure
 
         // Check if the response contains both tickets and users
         if (
-          response.data &&
-          Array.isArray(response.data.tickets) &&
-          Array.isArray(response.data.users)
+          data &&
+          Array.isArray(data.tickets) &&
+          Array.isArray(data.users)
         ) {
-          setTickets(response.data.tickets); // Set tickets
-          setUsers(response.data.users); // Set users
+          setTickets(data.tickets); // Set tickets
+          setUsers(data.users); // Set users
         } else {
-          // console.error("Expected an array but received:", response.data);
+          console.error("Expected an array but received:", data);
         }
       } catch (error) {
         console.error("Error fetching tickets:", error);
@@ -88,11 +92,6 @@ const KanbanBoard = ({ grouping, sorting }) => {
     }
   };
 
-  // Custom sorting function for priority
-  const sortPriorityKeys = (keys) => {
-    return keys.sort((a, b) => priorityOrder.indexOf(a) - priorityOrder.indexOf(b));
-  };
-
   // Sort tickets by the selected sorting option
   const sortTickets = (tickets) => {
     return tickets.sort((a, b) => {
@@ -131,13 +130,13 @@ const KanbanBoard = ({ grouping, sorting }) => {
   const groupedTickets = groupTickets(tickets);
 
   return (
-    <div className="kanban-board">
+    <>
       {Object.keys(groupedTickets).length === 0 ? (
         <p>No tickets available</p>
       ) : (
         renderGroupedTickets(groupedTickets)
       )}
-    </div>
+    </>
   );
 };
 
