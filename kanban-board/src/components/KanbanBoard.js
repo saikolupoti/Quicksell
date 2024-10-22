@@ -25,7 +25,7 @@ const KanbanBoard = ({ grouping, sorting }) => {
           setTickets(response.data.tickets); // Set tickets
           setUsers(response.data.users); // Set users
         } else {
-          console.error("Expected an array but received:", response.data);
+          // console.error("Expected an array but received:", response.data);
         }
       } catch (error) {
         console.error("Error fetching tickets:", error);
