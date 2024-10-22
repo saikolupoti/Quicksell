@@ -12,7 +12,7 @@ const KanbanBoard = ({ grouping, sorting }) => {
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const response = await axios.get(
+        const response = await fetch(
           "https://api.quicksell.co/v1/internal/frontend-assignment"
         );
         console.log(response.data); // Log the response data to check its structure
@@ -132,13 +132,13 @@ const KanbanBoard = ({ grouping, sorting }) => {
   const groupedTickets = groupTickets(tickets);
 
   return (
-    <>
+    <div className="kanban-board">
       {Object.keys(groupedTickets).length === 0 ? (
         <p>No tickets available</p>
       ) : (
         renderGroupedTickets(groupedTickets)
       )}
-    </>
+    </div>
   );
 };
 
