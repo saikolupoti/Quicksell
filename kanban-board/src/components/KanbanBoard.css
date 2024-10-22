@@ -1,0 +1,25 @@
+.kanban-board {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.kanban-column {
+    width: 300px;
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 0px 15px;
+  }
+  
+  .kanban-column h2 {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .spinner {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 50px;
+  }
+  
